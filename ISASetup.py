@@ -111,6 +111,13 @@ def create_json_metadata():
         technology_platform='Bruker',
         units=[ppm, molarity])
 
+    sipos2006_raman_assay = Assay(
+        measurement_type=raman_peak,
+        technology_type=raman_spectra,
+        technology_platform='Unknown',
+        units=[raman_peak, molarity]
+        )
+
     zhou_raman_assay = Assay(
         measurement_type=raman_peak,
         technology_type=raman_spectra,
@@ -118,14 +125,19 @@ def create_json_metadata():
         units=[raman_peak, molarity]
     )
 
+    Al_inv.studies.append(nmr_study)
+
     # Create the links to the data files
-    sipos2006_fig2_img = spectralImage(filename='data/sipos2006_fig2.png')
+    # sipos2006_fig2_img = spectralImage(filename='data/sipos2006_fig2.png')
+    sipos2006_fig1_csv = extractedCSV(filename='data/sipos_2006_figure_1.csv')
     sipos2006_fig2_csv = extractedCSV(filename='data/sipos2006-fig2.csv')
 
-    # sipos2006_fig1_img = 
-    sipos2006_fig1_csv = extractedCSV(filename='data/sipos_2006_figure_1.csv')
+    sipos2006_tbl1_raman_csv = extractedCSV(filename='data/sipos_2006_table1.csv')
+    sipos2006_tbl1_nmr_csv = extractedCSV(filename='data/sipos_2006_table1.csv')
+
     sipos2006_tbl2_csv = extractedCSV(filename='data/sipos_2006_table2.csv')
-    sipos2006_
+
+    zhou_thesis_csv = extractedCSV(filename='data/zhou_thesis.csv')
 
 
     # Create the materials and samples
@@ -133,7 +145,6 @@ def create_json_metadata():
     al_sample = Sample(name='Al_sample', derives_from=[al_source])
 
     # Link the entries together
-    Al_inv.studies.append(nmr_study)
 
     sipos2006_nmr_assay.data_files.append(sipos2006_fig2_img)
     sipos2006_nmr_assay.data_files.append(sipos2006_fig2_csv)
