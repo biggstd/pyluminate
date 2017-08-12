@@ -26,10 +26,10 @@ their corresponding `.csv` files. The table below shows the headers used.
 | CSV Header | Description |
 -------------|--------------
 `Al_concentration` | The concentration of aluminate in moles per liter (M).
-`wavelength`       | a wavelength peak, measured in cm<sup>-1<sup>.
-`temperature`      | The temperature of the experiment, given in Celsius.
 `OH_concentration` | Concentration of hydroxide. *Not* the pH.
-`Al_ppm`           | The peak of an <sup>27<sup>Al in ppm.
+`wavelength`       | a wavelength peak, measured in cm<sup>-1</sup>.
+`temperature`      | The temperature of the experiment, given in Celsius.
+`Al_ppm`           | The peak of an <sup>27</sup>Al in ppm.
 
 ## Counter Ions tracked
 
