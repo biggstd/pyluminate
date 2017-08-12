@@ -11,12 +11,13 @@ concerning aluminum in basic conditions as well as data generated from the
 
 ## TODO
 
-- [ ] Create a demo & presentation for August 15th or 14th?
+- [x] Create a demo & presentation for August 15th or 14th?
 - [x] Write the ISASetup.py script.
 - [x] Import all data previously stored in R databases into `.csv` format.
-- [ ] Link the added databases within the ISA-script.
-- [ ] Create functions to handle generating columns.
-- [ ] Pick a 'standard' for <sup>27<sup>Al NMR.
+- [x] Link the added databases within the ISA-script.
+- [x] Create functions to handle generating columns.
+- [ ] Finish the colum selection demo.
+- [ ] Write functions for ISA metadata additions.
 
 ## Standardized Column Headers
 
