@@ -5,6 +5,7 @@ at your command prompt. Then navigate to the URL
     http://localhost:5006/selection_histogram
 in your browser.
 '''
+from vis_helper import create_dataframes
 
 import numpy as np
 
@@ -12,18 +13,7 @@ from bokeh.layouts import row, column
 from bokeh.models import BoxSelectTool, LassoSelectTool, Spacer
 from bokeh.plotting import figure, curdoc
 
-# create three normal population samples with different parameters
-x1 = np.random.normal(loc=5.0, size=400) * 100
-y1 = np.random.normal(loc=10.0, size=400) * 10
-
-x2 = np.random.normal(loc=5.0, size=800) * 50
-y2 = np.random.normal(loc=5.0, size=800) * 10
-
-x3 = np.random.normal(loc=55.0, size=200) * 10
-y3 = np.random.normal(loc=4.0, size=200) * 10
-
-x = np.concatenate((x1, x2, x3))
-y = np.concatenate((y1, y2, y3))
+dataframes = create_dataframes('../data/nmr_metadata.json')
 
 TOOLS="pan,wheel_zoom,box_select,lasso_select,reset"
 
@@ -34,6 +24,9 @@ p = figure(tools=TOOLS, plot_width=600, plot_height=600, min_border=10, min_bord
 p.background_fill_color = "#fafafa"
 p.select(BoxSelectTool).select_every_mousemove = False
 p.select(LassoSelectTool).select_every_mousemove = False
+
+x = dataframes['Al_ppm']
+y = dataframes['Al_concentration']
 
 r = p.scatter(x, y, size=3, color="#3A5785", alpha=0.6)
 
@@ -49,6 +42,7 @@ ph = figure(toolbar_location=None, plot_width=p.plot_width, plot_height=200, x_r
 ph.xgrid.grid_line_color = None
 ph.yaxis.major_label_orientation = np.pi/4
 ph.background_fill_color = "#fafafa"
+
 
 ph.quad(bottom=0, left=hedges[:-1], right=hedges[1:], top=hhist, color="white", line_color="#3A5785")
 hh1 = ph.quad(bottom=0, left=hedges[:-1], right=hedges[1:], top=hzeros, alpha=0.5, **LINE_ARGS)

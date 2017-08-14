@@ -8,10 +8,10 @@ A collection of helper scripts for plotting aluminate data.
 
 """
 
-import webbrowser
 import os
-# import numpy as np
 import json
+import webbrowser
+# import numpy as np
 import pandas as pd
 # import bokeh as bk
 # import holoviews as hv
@@ -20,10 +20,10 @@ import pandas as pd
 def create_dataframes(json_metadata_path):
     """Construct dataframes with the needed metadata attached."""
     # Read the metadata json file constructed by ISASetup.py
-    with open(json_metadata_path, 'r') as f:
-        metadata = json.load(f)
+    with open(json_metadata_path, 'r') as md_file:
+        metadata = json.load(md_file)
     # create a dataframes for each csv found
-    dataFrame_list = []
+    dataframe_list = []
     for study in metadata['studies']:
         # Store the doi/link
         for publication in study['publications']:
@@ -32,10 +32,10 @@ def create_dataframes(json_metadata_path):
             # They should all be the same the way I implemented it.
         for assay in study['assays']:
             for filename in assay['dataFiles']:
-                df = pd.read_csv(filename['name'])
-                df['doi'] = doi
-                dataFrame_list.append(df)
-    return pd.concat(dataFrame_list)
+                dataframe = pd.read_csv(filename['name'])
+                dataframe['doi'] = doi
+                dataframe_list.append(dataframe)
+    return pd.concat(dataframe_list)
 
 
 def show_local_html(filename):
