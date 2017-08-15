@@ -8,6 +8,9 @@ build
 *.exe
 *.o
 *.so
+*.ipynb_checkpoints
+*.pyc
+
 
 # Packages #
 ############

@@ -14,7 +14,7 @@
                     "comments": [],
                     "dataFiles": [
                         {
-                            "@id": "#data/plot-csv-extract-140429101060224",
+                            "@id": "#data/plot-csv-extract-140115470537000",
                             "comments": [],
                             "name": "data/zhou_thesis.csv",
                             "type": "Plot-csv-extract"
@@ -26,7 +26,7 @@
                         "samples": []
                     },
                     "measurementType": {
-                        "@id": "#140429101022344",
+                        "@id": "#140115470503160",
                         "annotationValue": "cm-1",
                         "termAccession": "",
                         "termSource": "Raman Spectroscopy"
@@ -34,20 +34,20 @@
                     "processSequence": [],
                     "technologyPlatform": "Unknown",
                     "technologyType": {
-                        "@id": "#140429101021784",
+                        "@id": "#140115470502600",
                         "annotationValue": "raman spectra",
                         "termAccession": "",
                         "termSource": "Raman Spectroscopy"
                     },
                     "unitCategories": [
                         {
-                            "@id": "#140429101022344",
+                            "@id": "#140115470503160",
                             "annotationValue": "cm-1",
                             "termAccession": "",
                             "termSource": "Raman Spectroscopy"
                         },
                         {
-                            "@id": "#140429101022288",
+                            "@id": "#140115470503104",
                             "annotationValue": "Molarity",
                             "termAccession": "",
                             "termSource": "Amount Concentration"
@@ -93,21 +93,27 @@
                     "comments": [],
                     "dataFiles": [
                         {
-                            "@id": "#data/plot-csv-extract-140429101022736",
+                            "@id": "#data/plot-csv-extract-140115470503552",
                             "comments": [],
                             "name": "data/sipos2006-fig2.csv",
                             "type": "Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140429101022848",
+                            "@id": "#data/plot-csv-extract-140115470503664",
                             "comments": [],
                             "name": "data/sipos_2006_table1_nmr.csv",
                             "type": "Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140429101022904",
+                            "@id": "#data/plot-csv-extract-140115470503720",
                             "comments": [],
                             "name": "data/sipos_2006_table2.csv",
+                            "type": "Plot-csv-extract"
+                        },
+                        {
+                            "@id": "#data/plot-csv-extract-140115470503776",
+                            "comments": [],
+                            "name": "data/sipos_2006_fig3.csv",
                             "type": "Plot-csv-extract"
                         }
                     ],
@@ -117,7 +123,7 @@
                         "samples": []
                     },
                     "measurementType": {
-                        "@id": "#140429101022176",
+                        "@id": "#140115470502992",
                         "annotationValue": "ppm",
                         "termAccession": "",
                         "termSource": "Nuclear Magnetic Resonance"
@@ -125,20 +131,20 @@
                     "processSequence": [],
                     "technologyPlatform": "Bruker",
                     "technologyType": {
-                        "@id": "#140429101022400",
+                        "@id": "#140115470503216",
                         "annotationValue": "27 Al NMR",
                         "termAccession": "",
                         "termSource": "Nuclear Magnetic Resonance"
                     },
                     "unitCategories": [
                         {
-                            "@id": "#140429101022176",
+                            "@id": "#140115470502992",
                             "annotationValue": "ppm",
                             "termAccession": "",
                             "termSource": "Nuclear Magnetic Resonance"
                         },
                         {
-                            "@id": "#140429101022288",
+                            "@id": "#140115470503104",
                             "annotationValue": "Molarity",
                             "termAccession": "",
                             "termSource": "Amount Concentration"
@@ -157,7 +163,7 @@
                 "samples": [],
                 "sources": [
                     {
-                        "@id": "#source/140429101022456",
+                        "@id": "#source/140115470503272",
                         "characteristics": [],
                         "name": "Al_source"
                     }
@@ -190,13 +196,13 @@
                     "comments": [],
                     "dataFiles": [
                         {
-                            "@id": "#data/plot-csv-extract-140429101023016",
+                            "@id": "#data/plot-csv-extract-140115470503888",
                             "comments": [],
                             "name": "data/sipos_2006_figure_1.csv",
                             "type": "Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140429101023072",
+                            "@id": "#data/plot-csv-extract-140115470536776",
                             "comments": [],
                             "name": "data/sipos_2006_table1_raman.csv",
                             "type": "Plot-csv-extract"
@@ -208,7 +214,7 @@
                         "samples": []
                     },
                     "measurementType": {
-                        "@id": "#140429101022344",
+                        "@id": "#140115470503160",
                         "annotationValue": "cm-1",
                         "termAccession": "",
                         "termSource": "Raman Spectroscopy"
@@ -216,20 +222,20 @@
                     "processSequence": [],
                     "technologyPlatform": "Unknown",
                     "technologyType": {
-                        "@id": "#140429101021784",
+                        "@id": "#140115470502600",
                         "annotationValue": "raman spectra",
                         "termAccession": "",
                         "termSource": "Raman Spectroscopy"
                     },
                     "unitCategories": [
                         {
-                            "@id": "#140429101022344",
+                            "@id": "#140115470503160",
                             "annotationValue": "cm-1",
                             "termAccession": "",
                             "termSource": "Raman Spectroscopy"
                         },
                         {
-                            "@id": "#140429101022288",
+                            "@id": "#140115470503104",
                             "annotationValue": "Molarity",
                             "termAccession": "",
                             "termSource": "Amount Concentration"

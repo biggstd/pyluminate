@@ -53,7 +53,7 @@ p.select(BoxSelectTool).select_every_mousemove = False
 p.select(LassoSelectTool).select_every_mousemove = False
 
 x = dataframes['Al_ppm'].dropna()
-y = dataframes['Al_concentration'].dropna()
+y = dataframes['wavelength'].dropna()
 
 r = p.scatter(x, y, size=3, color="#3A5785", alpha=0.6)
 

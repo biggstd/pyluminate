@@ -133,6 +133,9 @@ def create_json_metadata():
     sipos2006_tbl2_csv = extractedCSV(filename='data/sipos_2006_table2.csv')
     sipos2006_nmr_assay.data_files.append(sipos2006_tbl2_csv)
 
+    sipos2006_fig3_csv = extractedCSV(filename='data/sipos_2006_fig3.csv')
+    sipos2006_nmr_assay.data_files.append(sipos2006_fig3_csv)
+
     sipos2006_nmr_study.assays.append(sipos2006_nmr_assay)
 
 

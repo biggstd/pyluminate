@@ -11,6 +11,7 @@ output:
 library(knitr)
 opts_chunk$set(eval=F)
 ```
+
 ## Overview
 
 **Goal**: Visualize available literature data, as well as data created by the IDREAM group.
@@ -21,6 +22,58 @@ Based on feedback from IDREAM group members and others at PNNL:
   + Dataframe manipulation with `pandas`
   + Visualization handled with `bokeh`
   + (future) Database backend with `HDF5`
+
+
+## An example from the ground up
+
+Suppose we want to compare data from several papers, to see if a pattern emerges. Suppose we would like to examine the effect concentration of aluminate effects is <sup>27</sup>Al NMR shift. We can take this plot below from a 2006 paper to start.
+
+<img src="data_images/sipos2006-fig-3.png" width="600">
+
+
+## Using Web-Plot Digitizer
+
+Tools exist for most of these types of problems, for this I have chosen **WebPlotDigitizer**. This allows for the extraction of data.
+
+<img src="data_images/wpd_action.png" width="800">
+
+http://arohatgi.info/WebPlotDigitizer/app/
+
+
+## Combine Sources and Visualize
+
+```
+OH_concentration,Al_ppm
+0.14, 79.96
+0.66, 79.92
+1.10, 79.84
+1.64, 79.66
+2.14, 79.54
+2.59, 79.36
+3.11, 79.13
+3.59, 78.83
+4.11, 78.47
+```
+
+That wasn't so hard -- repeat with a few more figures and examine the data...
+
+
+## Visualization of ppm v [MOH]
+
+<div class="columns-2">
+
+<img src="generated_images/bokeh_demo1.png" width="500">
+
+  + The data is definately there...
+  + The start of some trends are there, but --
+  + There are even more questions that arise!
+
+</div>
+
+
+## Other Dimensions
+
+
 
 
 ## ISA-Tools
@@ -108,6 +161,6 @@ hv.extension('bokeh', width=95)
   + **ISA-tools** Backend metadata managment tool in pace.
   + Method of extracting literature data in place **Webplotdigitizer**.
   + Can now:
-    + add more data types
+    + add more data types & parsing functions
     + add IDREAM generated data
     + explore other visualization techniques
