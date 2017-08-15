@@ -64,30 +64,55 @@ That wasn't so hard -- repeat with a few more figures and examine the data...
 
 <img src="generated_images/bokeh_demo1.png" width="500">
 
-  + The data is definately there...
   + The start of some trends are there, but --
-  + There are even more questions that arise!
+  + We are missing some data from the original plots.
 
 </div>
 
 
-## Other Dimensions
+## Data
+
+In the publication the following conditions where given:
+
+  + Aluminate concentration = 0.005 M
+  + The three counter ions, K+, Na+, Li+
+
+<iframe src="plot2.html" frameBorder="0"></iframe>
 
 
+## Explore other aspects
+
+<div class="columns-2">
+
+<img src="data_images/sipos2006-fig-3.png" width="500">
+
+How can we visualize the aluminum concentration?
+
+  + additional dimensions
+  + size 
+
+Datasets original annotation:
+
+> 27Al NMR chemical shift vs. the total molar concentration of KOH (☐),
+> NaOH (○) and LiOH (●) at [Al(III)]T = 0.005 M.
+
+</div>
 
 
-## ISA-Tools
+## Data growing pains
 
-> Built around the 'Investigation' (the project context), 'Study' (a unit of research) 
-> and 'Assay' (analytical measurement) general-purpose Tabular format, the ISA tools 
-> helps you to provide rich description of the experimental metadata (i.e. sample 
-> characteristics, technology and measurement types, sample-to-data relationships) 
-> so that the resulting data and discoveries are reproducible and reusable.
+As the amount and types of data we desire to track grow, we will want to:
+
+  + Keep track of where the data came from.
+  + Get 'all the data we can' from our sources.
+  + Do as little work as possible.
 
 
-## ISA-Tools Continued
+## Solution
 
-<img src="isa-model.png" width="800" />
+It turns out much of these and similar problems can be solved the same way.
+
+It also turns out that some of these problems have been solved to some degree.
 
 
 ## ISA-Tools Initialization
@@ -115,21 +140,17 @@ ISA-Tools creates a `json` metadata entry from which the desired metadata attrib
                     ...
 ```
 
-
 ## Extract the desired data & metadata from this json object
 
 ```{python, EVAL=FALSE}
 def create_dataframes(json_metadata_path):
     """Construct dataframes with the needed metadata attached."""
-    # Read the metadata json file constructed by ISASetup.py
     with open(json_metadata_path, 'r') as f:
         metadata = json.load(f)
-    # create a dataframes for each csv found
     dataFrame_list = []
     for study in metadata['studies']:
-        # Store the doi/link
         for publication in study['publications']:
-            doi = publication['doi'] # This is buggy, just picks the last one. They should all be the same the way I implemented it.
+            doi = publication['doi']
         for assay in study['assays']:
             for filename in assay['dataFiles']:
                 df = pd.read_csv(filename['name'])
@@ -138,15 +159,18 @@ def create_dataframes(json_metadata_path):
     return pd.concat(dataFrame_list)
 ```
 
-## From ISA-Tools to Visualization with Bokeh
+## Wrangling Data
 
-```{python, EVAL=FALSE}
-import holoviews as hv
-hv.extension('bokeh', width=95)
-```
+With our data set complete, we can return to analysis...
+
+What about those aluminum concentrations?
+
+<iframe src="plot3.html" frameBorder="0"></iframe>
 
 
-<img src="example_I.svg" width="400"/>
+##  Crossfilter Application Demo
+
+demo application
 
 ## Identifying Trends
 
@@ -163,4 +187,4 @@ hv.extension('bokeh', width=95)
   + Can now:
     + add more data types & parsing functions
     + add IDREAM generated data
-    + explore other visualization techniques
+

@@ -31,8 +31,14 @@ def create_dataframes(json_metadata_path):
     return pd.concat(dataFrame_list, ignore_index=True)
 
 data = create_dataframes('data/nmr_metadata.json')
-
-
+data['counter_ion'].factorize()
+colormap = {
+    'Na+': '#0072B2',
+    'Li+': '#56B4E9',
+    'K+': '#E69F00',
+    'Cs+': '#009E73',
+}
+data['ion_colors'] = [colormap[x] for x in data['counter_ion']]
 
 SIZES = list(range(6, 22, 3))
 COLORS = Spectral5
@@ -59,8 +65,8 @@ def create_figure():
     p.xaxis.axis_label = x_title
     p.yaxis.axis_label = y_title
 
-    if x.value in discrete:
-        p.xaxis.major_label_orientation = pd.np.pi / 4
+    # if x.value in discrete:
+    #     p.xaxis.major_label_orientation = pd.np.pi / 4
 
     sz = 9
     if size.value != 'None':
@@ -81,16 +87,32 @@ def update(attr, old, new):
     layout.children[1] = create_figure()
 
 
-x = Select(title='X-Axis', value='Al_ppm', options=columns)
+x = Select(title='X-Axis', value='Al_ppm', 
+    options=[
+        'Al_ppm',
+        'OH_concentration',
+        'Al_concentration',
+        'CI_concentration',
+        'wavelength'
+        ])
 x.on_change('value', update)
 
-y = Select(title='Y-Axis', value='OH_concentration', options=columns)
+y = Select(title='Y-Axis', value='OH_concentration', 
+    options=[
+        'Al_ppm',
+        'Al_concentration',
+        'OH_concentration',
+        'CI_concentration',
+        'wavelength'
+        ])
 y.on_change('value', update)
 
-size = Select(title='Size', value='None', options=columns)
+size = Select(title='Size', value='Al_concentration', 
+    options=['counter_ion', 'Al_ppm'])
 size.on_change('value', update)
 
-color = Select(title='Color', value='None', options=columns)
+color = Select(title='Color', value='None', 
+    options=['ion_colors', 'Al_ppm'])
 color.on_change('value', update)
 
 controls = widgetbox([x, y, color, size], width=200)
