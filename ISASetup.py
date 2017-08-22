@@ -174,6 +174,7 @@ def create_json_metadata():
         technology_platform='Unknown',
         units=[raman_peak, molarity]
     )
+
     zhou_thesis_csv = extractedCSV(filename='data/zhou_thesis.csv')
     zhou_raman_assay.data_files.append(zhou_thesis_csv)
     zhou_raman_study.assays.append(zhou_raman_assay)
