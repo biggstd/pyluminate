@@ -74,9 +74,9 @@ def create_figure():
         sz = [SIZES[xx] for xx in groups.codes]
 
     c = "#31AADE"
-    if color.value != 'None':
-        groups = pd.qcut(data[color.value].values, len(COLORS), duplicates='drop')
-        c = [COLORS[xx] for xx in groups.codes]
+    # if color.value != 'None':
+    #     groups = pd.qcut(data[color.value].values, len(COLORS), duplicates='drop')
+    #     c = [COLORS[xx] for xx in groups.codes]
 
         
     p.circle(x=xs, y=ys, color=c, size=sz, line_color="white", alpha=0.6, hover_color='white', hover_alpha=0.5)
@@ -87,7 +87,7 @@ def update(attr, old, new):
     layout.children[1] = create_figure()
 
 
-x = Select(title='X-Axis', value='Al_ppm', 
+x = Select(title='X-Axis', value='OH_concentration', 
     options=[
         'Al_ppm',
         'OH_concentration',
@@ -97,7 +97,7 @@ x = Select(title='X-Axis', value='Al_ppm',
         ])
 x.on_change('value', update)
 
-y = Select(title='Y-Axis', value='OH_concentration', 
+y = Select(title='Y-Axis', value='Al_ppm', 
     options=[
         'Al_ppm',
         'Al_concentration',
@@ -107,16 +107,18 @@ y = Select(title='Y-Axis', value='OH_concentration',
         ])
 y.on_change('value', update)
 
-size = Select(title='Size', value='Al_concentration', 
-    options=['counter_ion', 'Al_ppm'])
+size = Select(title='Size', value='None', 
+    options=['Al_concentration', 'OH_concentration', 'None'])
 size.on_change('value', update)
 
-color = Select(title='Color', value='None', 
-    options=['ion_colors', 'Al_ppm'])
-color.on_change('value', update)
+# color = Select(title='Color', value='None', 
+#     options=['ion_colors', 'Al_ppm'])
+# color.on_change('value', update)
 
-controls = widgetbox([x, y, color, size], width=200)
+# controls = widgetbox([x, y, color, size], width=200)
+controls = widgetbox([x, y, size], width=200)
 layout = row(controls, create_figure())
 
 curdoc().add_root(layout)
-curdoc().title = "Crossfilter"
+curdoc().title = "Aluminate Crossfilter"
+
