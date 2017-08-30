@@ -66,6 +66,7 @@ def create_json_metadata():
     eeded to link the **studies** together.
     """
     logging.info('JSON creation script called.')
+
     Al_inv = Investigation(
         identifier='Al_investigation',
         title='Aluminate Investigation',
