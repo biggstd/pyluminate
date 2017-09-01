@@ -72,6 +72,8 @@ def create_metadata():
     nmr = OntologySource(name='Nuclear Magnetic Resonance')
     raman = OntologySource(name='Raman Spectroscopy')
     simulation = OntologySource(name="Simulated Data")
+    aluminate = OntologySource(name="Aluminate Species")
+    inter_atom_distance = OntologySource(name="Inter-atom distances")
 
     """
     Ontology Annotations
@@ -82,9 +84,36 @@ def create_metadata():
     raman_peak = OntologyAnnotation(term='cm-1', term_source=raman)
     raman_spectra = OntologyAnnotation(term='raman spectra', term_source=raman)
     simulated_rdf = OntologyAnnotation(term='Simulated RDF', term_source=simulation)
+
+    angstrom_interatom = OntologyAnnotation(
+        term='Angstroms',
+        term_source=inter_atom_distance,
+    )
+
+    aluminate_dimer_1 = OntologyAnnotation(
+        term='(OH)3Al-O-Al(OH)32-+ 180 H2O + 2 Na+',
+        term_source=aluminate)
+    aluminate_dimer_2 = OntologyAnnotation(
+        term=' (OH)3Al-(OH)-Al(OH)3- + 179 H2O + HO- + 2 Na+',
+        term_source=aluminate)
+    aluminate_dimer_3 = OntologyAnnotation(
+        term='(OH)3Al-(OH)2 -Al(OH)3- + 179 H2O + 2 Na+',
+        term_source=aluminate)
+    aluminate_dimer_4 = OntologyAnnotation(
+        term='(OH)2Al-O2-Al(OH)2- + 181 H2O + 2 Na+',
+        term_source=aluminate)
+
     simulated_vibrational_spectra = OntologyAnnotation(
         term='Simulated vibrational spectrum',
         term_source=simulation)
+
+    Al_Ob_distance = OntologyAnnotation(
+        term='Distance between bridging oxygen and Al.',
+        term_source=inter_atom_distance)
+    Al_Oh_distance =OntologyAnnotation(
+        term='Distance between lateral hydroxyl and Al.',
+        term_source = inter_atom_distance)
+
 
     """
     Sipos 2006 Publication.
@@ -212,22 +241,69 @@ def create_metadata():
         assays=[maxime_vib_assay]
     )
 
-    ## MAXIME RDF ASSAY
-
-    maxime_rdf_assay = Assay(
-        measurement_type=raman_peak,
-        technology_type=raman_spectra,
-        technology_platform='Unknown',
-        units=[raman_peak, molarity],
-        characteristic_categories=[simulated_rdf],
+    ## MAXIME RDF ASSAYS
+    maxime_d1_rdf_assay = Assay(
+        measurement_type=simulated_rdf,
+        technology_type=simulated_rdf,
+        technology_platform='To be filled out.',
+        units=[angstrom_interatom],
+        characteristic_categories=[
+            aluminate_dimer_1,
+            simulated_rdf,
+            Al_Ob_distance,
+            Al_Oh_distance,
+        ],
         data_files=[
-            MaximeRDF(filename='data/d1.rdf'),
-            MaximeRDF(filename='data/d2.rdf'),
-            MaximeRDF(filename='data/d3.rdf'),
-            MaximeRDF(filename='data/d4.rdf'),
+            MaximeRDF(filename='data/d1.RDF',),
         ]
     )
 
+    maxime_d2_rdf_assay = Assay(
+        measurement_type=simulated_rdf,
+        technology_type=simulated_rdf,
+        technology_platform='To be filled out.',
+        units=[angstrom_interatom],
+        characteristic_categories=[
+            aluminate_dimer_2,
+            simulated_rdf,
+            Al_Ob_distance,
+            Al_Oh_distance,
+        ],
+        data_files=[
+            MaximeRDF(filename='data/d2.RDF',),
+        ]
+    )
+    maxime_d3_rdf_assay = Assay(
+        measurement_type=simulated_rdf,
+        technology_type=simulated_rdf,
+        technology_platform='To be filled out.',
+        units=[angstrom_interatom],
+        characteristic_categories=[
+            aluminate_dimer_3,
+            simulated_rdf,
+            Al_Ob_distance,
+            Al_Oh_distance,
+        ],
+        data_files=[
+            MaximeRDF(filename='data/d3.RDF',),
+        ]
+    )
+
+    maxime_d4_rdf_assay = Assay(
+        measurement_type=simulated_rdf,
+        technology_type=simulated_rdf,
+        technology_platform='To be filled out.',
+        units=[angstrom_interatom],
+        characteristic_categories=[
+            aluminate_dimer_4,
+            simulated_rdf,
+            Al_Ob_distance,
+            Al_Oh_distance,
+        ],
+        data_files=[
+            MaximeRDF(filename='data/d4.RDF',),
+        ]
+    )
 
     maxime_rdf_study = Study(
         identifier="maxime_rdf_study",
@@ -241,7 +317,13 @@ def create_metadata():
             "and finally the columns correspond to the running "
             "coordination numbers for these same pair types."
         ),
-        assays=[maxime_rdf_assay]
+
+        assays=[
+            maxime_d1_rdf_assay,
+            maxime_d2_rdf_assay,
+            maxime_d3_rdf_assay,
+            maxime_d4_rdf_assay,
+        ]
     )
 
     ###########################################################################
