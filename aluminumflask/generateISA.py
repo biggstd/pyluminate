@@ -28,6 +28,34 @@ class extractedCSV(DataFile):
         self.label = "Plot-csv-extract"
 
 
+class MaximeRDF(DataFile):
+    """Class for the data from Maxime."""
+
+    def __init__(self, filename='',
+                 id_='',
+                 generated_from=None,
+                 comments=None):
+        super().__init__(filename=filename,
+                         id_=id_,
+                         generated_from=generated_from,
+                         comments=comments)
+        self.label = "Maxime-RDF"
+
+
+class MaximeVib(DataFile):
+    """Class for the data from Maxime.
+"""
+    def __init__(self, filename='',
+                 id_='',
+                 generated_from=None,
+                 comments=None):
+        super().__init__(filename=filename,
+                         id_=id_,
+                         generated_from=generated_from,
+                         comments=comments)
+        self.label = "Maxime Vibrational Spectrum"
+
+
 def create_metadata():
     """
     Returns an ISA-JSON object.
@@ -43,6 +71,7 @@ def create_metadata():
     # hydroxide = OntologySource(name='Hydroxide')
     nmr = OntologySource(name='Nuclear Magnetic Resonance')
     raman = OntologySource(name='Raman Spectroscopy')
+    simulation = OntologySource(name="Simulated Data")
 
     """
     Ontology Annotations
@@ -52,9 +81,12 @@ def create_metadata():
     molarity = OntologyAnnotation(term='Molarity', term_source=amnt_conc)
     raman_peak = OntologyAnnotation(term='cm-1', term_source=raman)
     raman_spectra = OntologyAnnotation(term='raman spectra', term_source=raman)
+    simulated_rdf = OntologyAnnotation(term='Simulated RDF', term_source=simulation)
+    simulated_vibrational_spectra = OntologyAnnotation(
+        term='Simulated vibrational spectrum',
+        term_source=simulation)
 
     """
-    ###########################################################################
     Sipos 2006 Publication.
     """
     sipos_2006_pub = Publication(
@@ -108,10 +140,7 @@ def create_metadata():
 
 
 
-    """
-    ###########################################################################
-    Zhou Publication
-    """
+    """Zhou Publication"""
     zhou_thesis = Publication(
         title=(
             'Raman studies on the aluminate and carbonate '
@@ -140,11 +169,80 @@ def create_metadata():
 
     )
 
+    #######################
+    ## MAXIME
+    #######################
 
-    """
-    ###########################################################################
-    Shu-hua_2007 Publication
-    """
+
+    maxime_vib_assay = Assay(
+        measurement_type=raman_peak,
+        technology_type=raman_spectra,
+        technology_platform='Unknown',
+        units=[raman_peak, molarity],
+        data_files=[
+            MaximeVib(filename='data/d1.AlO.PWS'),
+            MaximeVib(filename='data/d1.el.PWS'),
+
+            MaximeVib(filename='data/d2.AlO.PWS'),
+            MaximeVib(filename='data/d2.el.PWS'),
+
+            MaximeVib(filename='data/d3.AlO.PWS'),
+            MaximeVib(filename='data/d3.el.PWS'),
+
+            MaximeVib(filename='data/d4.AlO.PWS'),
+            MaximeVib(filename='data/d4.el.PWS'),
+
+        ]
+    )
+
+
+    maxime_vibrational_dimer_study = Study(
+        identifier="maxime_vibrational_dimer_study",
+        title="Explore various aluminate dimers.",
+        description=(
+            "In the PWS files the vibrational power spectra are obtained from "
+            "the atomic velocity autocorrelation function (VACF). These are the "
+            "vibrational spectra you would obtain if you didn’t have any "
+            "selection rule, so essentially you get all the possible bands "
+            "with the correct frequencies but the intensities are not directly "
+            "related to the IR or Raman ones. Still, you can definitely extract "
+            "the frequencies corresponding to the most intense bands as you will "
+            "very likely find those in the IR and/or Raman spectra."
+        ),
+        assays=[maxime_vib_assay]
+    )
+
+    ## MAXIME RDF ASSAY
+
+    maxime_rdf_assay = Assay(
+        measurement_type=raman_peak,
+        technology_type=raman_spectra,
+        technology_platform='Unknown',
+        units=[raman_peak, molarity],
+        characteristic_categories=[simulated_rdf],
+        data_files=[
+            MaximeRDF(filename='data/d1.rdf'),
+            MaximeRDF(filename='data/d2.rdf'),
+            MaximeRDF(filename='data/d3.rdf'),
+            MaximeRDF(filename='data/d4.rdf'),
+        ]
+    )
+
+
+    maxime_rdf_study = Study(
+        identifier="maxime_rdf_study",
+        title="Explore various aluminate dimers.",
+        description=(
+            "RDFs are obtained from the atomic positions. "
+            "1st column: r (distance with respect to the 1st"
+            " atom of the pair type) in angstroms."
+            " The following columns are the RDFs for different "
+            "pair types (i.e. ‘Al-O’) mentioned in the header, "
+            "and finally the columns correspond to the running "
+            "coordination numbers for these same pair types."
+        ),
+        assays=[maxime_rdf_assay]
+    )
 
     ###########################################################################
     """Create the overall investigation."""
@@ -156,6 +254,8 @@ def create_metadata():
             sipos2006_raman_study,
             sipos2006_nmr_study,
             zhou_raman_study,
+            maxime_rdf_study,
+            maxime_vibrational_dimer_study,
         ]
     )
 
@@ -175,12 +275,11 @@ def create_metadata():
 
 def main():
     """Writes the aluminate json entry to a specified folder."""
-    metadata = create_metadata()
+    nmr_metadata = create_metadata()
+    logging.info(nmr_metadata)
     path = '../data/nmr_metadata.json'
-    with open(path, 'w') as out_file:
-        out_file.write(metadata)
-    return
-
+    with open(path, 'w') as f:
+        f.write(nmr_metadata)
 
 if __name__ == '__main__':
     main()
