@@ -1,280 +1,274 @@
 {
-    "comments": [],
-    "description": "Investigation into the properties of aluminate",
-    "identifier": "Al_investigation",
-    "ontologySourceReferences": [],
-    "people": [],
-    "publicReleaseDate": "",
-    "publications": [],
-    "studies": [
+    "comments":[],
+    "description":"Investigation into the properties of aluminate",
+    "identifier":"Al_investigation",
+    "ontologySourceReferences":[],
+    "people":[],
+    "publicReleaseDate":"",
+    "publications":[],
+    "studies":[
         {
-            "assays": [
+            "assays":[
                 {
-                    "characteristicCategories": [],
-                    "comments": [],
-                    "dataFiles": [
+                    "characteristicCategories":[],
+                    "comments":[],
+                    "dataFiles":[
                         {
-                            "@id": "#data/plot-csv-extract-140115470537000",
-                            "comments": [],
-                            "name": "data/zhou_thesis.csv",
-                            "type": "Plot-csv-extract"
-                        }
-                    ],
-                    "filename": "",
-                    "materials": {
-                        "otherMaterials": [],
-                        "samples": []
-                    },
-                    "measurementType": {
-                        "@id": "#140115470503160",
-                        "annotationValue": "cm-1",
-                        "termAccession": "",
-                        "termSource": "Raman Spectroscopy"
-                    },
-                    "processSequence": [],
-                    "technologyPlatform": "Unknown",
-                    "technologyType": {
-                        "@id": "#140115470502600",
-                        "annotationValue": "raman spectra",
-                        "termAccession": "",
-                        "termSource": "Raman Spectroscopy"
-                    },
-                    "unitCategories": [
-                        {
-                            "@id": "#140115470503160",
-                            "annotationValue": "cm-1",
-                            "termAccession": "",
-                            "termSource": "Raman Spectroscopy"
+                            "@id":"#data/plot-csv-extract-140015153949888",
+                            "comments":[],
+                            "name":"data/sipos_2006_figure_1.csv",
+                            "type":"Plot-csv-extract"
                         },
                         {
-                            "@id": "#140115470503104",
-                            "annotationValue": "Molarity",
-                            "termAccession": "",
-                            "termSource": "Amount Concentration"
+                            "@id":"#data/plot-csv-extract-140015153949944",
+                            "comments":[],
+                            "name":"data/sipos_2006_table1_raman.csv",
+                            "type":"Plot-csv-extract"
+                        }
+                    ],
+                    "filename":"",
+                    "materials":{
+                        "otherMaterials":[],
+                        "samples":[]
+                    },
+                    "measurementType":{
+                        "@id":"#140015153949608",
+                        "annotationValue":"cm-1",
+                        "termAccession":"",
+                        "termSource":"Raman Spectroscopy"
+                    },
+                    "processSequence":[],
+                    "technologyPlatform":"Unknown",
+                    "technologyType":{
+                        "@id":"#140015153949496",
+                        "annotationValue":"raman spectra",
+                        "termAccession":"",
+                        "termSource":"Raman Spectroscopy"
+                    },
+                    "unitCategories":[
+                        {
+                            "@id":"#140015153949608",
+                            "annotationValue":"cm-1",
+                            "termAccession":"",
+                            "termSource":"Raman Spectroscopy"
+                        },
+                        {
+                            "@id":"#140015153949440",
+                            "annotationValue":"Molarity",
+                            "termAccession":"",
+                            "termSource":"Amount Concentration"
                         }
                     ]
                 }
             ],
-            "characteristicCategories": [],
-            "comments": [],
-            "description": "Peaks from Raman Spectra",
-            "factors": [],
-            "filename": "",
-            "identifier": "raman",
-            "materials": {
-                "otherMaterials": [],
-                "samples": [],
-                "sources": []
+            "characteristicCategories":[],
+            "comments":[],
+            "description":"Peaks from Raman Spectra",
+            "factors":[],
+            "filename":"",
+            "identifier":"raman",
+            "materials":{
+                "otherMaterials":[],
+                "samples":[],
+                "sources":[]
             },
-            "people": [],
-            "processSequence": [],
-            "protocols": [],
-            "publicReleaseDate": "",
-            "publications": [
+            "people":[],
+            "processSequence":[],
+            "protocols":[],
+            "publicReleaseDate":"",
+            "publications":[
                 {
-                    "authorList": "",
-                    "doi": "http://collections.mun.ca/cdm/compoundobject/collection/theses2/id/222115/rec/6",
-                    "pubMedID": "",
-                    "status": {
-                        "@id": ""
+                    "authorList":"",
+                    "doi":"10.1016/j.talanta.2006.02.008",
+                    "pubMedID":"",
+                    "status":{
+                        "@id":""
                     },
-                    "title": "Raman studies on the aluminate and carbonate anions in aqueous solutions."
+                    "title":"$^{27}\\text{Al}$ NMR and Raman spectroscopic studies of alkaline aluminate solutions with extremely high caustic content - Does the octahedral species $\\text{Al(OH)}_6^{-3}$ exist in solution?"
                 }
             ],
-            "studyDesignDescriptors": [],
-            "submissionDate": "",
-            "title": "Zhou Raman studies.",
-            "unitCategories": []
+            "studyDesignDescriptors":[],
+            "submissionDate":"",
+            "title":"Raman Studies",
+            "unitCategories":[]
         },
         {
-            "assays": [
+            "assays":[
                 {
-                    "characteristicCategories": [],
-                    "comments": [],
-                    "dataFiles": [
+                    "characteristicCategories":[],
+                    "comments":[],
+                    "dataFiles":[
                         {
-                            "@id": "#data/plot-csv-extract-140115470503552",
-                            "comments": [],
-                            "name": "data/sipos2006-fig2.csv",
-                            "type": "Plot-csv-extract"
+                            "@id":"#data/plot-csv-extract-140015153949776",
+                            "comments":[],
+                            "name":"data/sipos2006-fig2.csv",
+                            "type":"Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140115470503664",
-                            "comments": [],
-                            "name": "data/sipos_2006_table1_nmr.csv",
-                            "type": "Plot-csv-extract"
+                            "@id":"#data/plot-csv-extract-140015153949664",
+                            "comments":[],
+                            "name":"data/sipos_2006_table1_nmr.csv",
+                            "type":"Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140115470503720",
-                            "comments": [],
-                            "name": "data/sipos_2006_table2.csv",
-                            "type": "Plot-csv-extract"
+                            "@id":"#data/plot-csv-extract-140015153949720",
+                            "comments":[],
+                            "name":"data/sipos_2006_table2.csv",
+                            "type":"Plot-csv-extract"
                         },
                         {
-                            "@id": "#data/plot-csv-extract-140115470503776",
-                            "comments": [],
-                            "name": "data/sipos_2006_fig3.csv",
-                            "type": "Plot-csv-extract"
+                            "@id":"#data/plot-csv-extract-140015153949160",
+                            "comments":[],
+                            "name":"data/sipos_2006_fig3.csv",
+                            "type":"Plot-csv-extract"
                         }
                     ],
-                    "filename": "",
-                    "materials": {
-                        "otherMaterials": [],
-                        "samples": []
+                    "filename":"",
+                    "materials":{
+                        "otherMaterials":[],
+                        "samples":[]
                     },
-                    "measurementType": {
-                        "@id": "#140115470502992",
-                        "annotationValue": "ppm",
-                        "termAccession": "",
-                        "termSource": "Nuclear Magnetic Resonance"
+                    "measurementType":{
+                        "@id":"#140015153949272",
+                        "annotationValue":"ppm",
+                        "termAccession":"",
+                        "termSource":"Nuclear Magnetic Resonance"
                     },
-                    "processSequence": [],
-                    "technologyPlatform": "Bruker",
-                    "technologyType": {
-                        "@id": "#140115470503216",
-                        "annotationValue": "27 Al NMR",
-                        "termAccession": "",
-                        "termSource": "Nuclear Magnetic Resonance"
+                    "processSequence":[],
+                    "technologyPlatform":"Bruker",
+                    "technologyType":{
+                        "@id":"#140015153949216",
+                        "annotationValue":"27 Al NMR",
+                        "termAccession":"",
+                        "termSource":"Nuclear Magnetic Resonance"
                     },
-                    "unitCategories": [
+                    "unitCategories":[
                         {
-                            "@id": "#140115470502992",
-                            "annotationValue": "ppm",
-                            "termAccession": "",
-                            "termSource": "Nuclear Magnetic Resonance"
+                            "@id":"#140015153949272",
+                            "annotationValue":"ppm",
+                            "termAccession":"",
+                            "termSource":"Nuclear Magnetic Resonance"
                         },
                         {
-                            "@id": "#140115470503104",
-                            "annotationValue": "Molarity",
-                            "termAccession": "",
-                            "termSource": "Amount Concentration"
+                            "@id":"#140015153949440",
+                            "annotationValue":"Molarity",
+                            "termAccession":"",
+                            "termSource":"Amount Concentration"
                         }
                     ]
                 }
             ],
-            "characteristicCategories": [],
-            "comments": [],
-            "description": "One dimensional NMR studies",
-            "factors": [],
-            "filename": "",
-            "identifier": "1d_nmr",
-            "materials": {
-                "otherMaterials": [],
-                "samples": [],
-                "sources": [
-                    {
-                        "@id": "#source/140115470503272",
-                        "characteristics": [],
-                        "name": "Al_source"
-                    }
-                ]
+            "characteristicCategories":[],
+            "comments":[],
+            "description":"One dimensional NMR studies",
+            "factors":[],
+            "filename":"",
+            "identifier":"1d_nmr",
+            "materials":{
+                "otherMaterials":[],
+                "samples":[],
+                "sources":[]
             },
-            "people": [],
-            "processSequence": [],
-            "protocols": [],
-            "publicReleaseDate": "",
-            "publications": [
+            "people":[],
+            "processSequence":[],
+            "protocols":[],
+            "publicReleaseDate":"",
+            "publications":[
                 {
-                    "authorList": "",
-                    "doi": "10.1016/j.talanta.2006.02.008",
-                    "pubMedID": "",
-                    "status": {
-                        "@id": ""
+                    "authorList":"",
+                    "doi":"10.1016/j.talanta.2006.02.008",
+                    "pubMedID":"",
+                    "status":{
+                        "@id":""
                     },
-                    "title": "$^{27}\\text{Al}$ NMR and Raman spectroscopic studies of alkaline aluminate solutions with extremely high caustic content - Does the octahedral species $\\text{Al(OH)}_6^{-3}$ exist in solution?"
+                    "title":"$^{27}\\text{Al}$ NMR and Raman spectroscopic studies of alkaline aluminate solutions with extremely high caustic content - Does the octahedral species $\\text{Al(OH)}_6^{-3}$ exist in solution?"
                 }
             ],
-            "studyDesignDescriptors": [],
-            "submissionDate": "",
-            "title": "1D NMR Studies",
-            "unitCategories": []
+            "studyDesignDescriptors":[],
+            "submissionDate":"",
+            "title":"1D NMR Studies",
+            "unitCategories":[]
         },
         {
-            "assays": [
+            "assays":[
                 {
-                    "characteristicCategories": [],
-                    "comments": [],
-                    "dataFiles": [
+                    "characteristicCategories":[],
+                    "comments":[],
+                    "dataFiles":[
                         {
-                            "@id": "#data/plot-csv-extract-140115470503888",
-                            "comments": [],
-                            "name": "data/sipos_2006_figure_1.csv",
-                            "type": "Plot-csv-extract"
-                        },
-                        {
-                            "@id": "#data/plot-csv-extract-140115470536776",
-                            "comments": [],
-                            "name": "data/sipos_2006_table1_raman.csv",
-                            "type": "Plot-csv-extract"
+                            "@id":"#data/plot-csv-extract-140015153950224",
+                            "comments":[],
+                            "name":"data/zhou_thesis.csv",
+                            "type":"Plot-csv-extract"
                         }
                     ],
-                    "filename": "",
-                    "materials": {
-                        "otherMaterials": [],
-                        "samples": []
+                    "filename":"",
+                    "materials":{
+                        "otherMaterials":[],
+                        "samples":[]
                     },
-                    "measurementType": {
-                        "@id": "#140115470503160",
-                        "annotationValue": "cm-1",
-                        "termAccession": "",
-                        "termSource": "Raman Spectroscopy"
+                    "measurementType":{
+                        "@id":"#140015153949608",
+                        "annotationValue":"cm-1",
+                        "termAccession":"",
+                        "termSource":"Raman Spectroscopy"
                     },
-                    "processSequence": [],
-                    "technologyPlatform": "Unknown",
-                    "technologyType": {
-                        "@id": "#140115470502600",
-                        "annotationValue": "raman spectra",
-                        "termAccession": "",
-                        "termSource": "Raman Spectroscopy"
+                    "processSequence":[],
+                    "technologyPlatform":"Unknown",
+                    "technologyType":{
+                        "@id":"#140015153949496",
+                        "annotationValue":"raman spectra",
+                        "termAccession":"",
+                        "termSource":"Raman Spectroscopy"
                     },
-                    "unitCategories": [
+                    "unitCategories":[
                         {
-                            "@id": "#140115470503160",
-                            "annotationValue": "cm-1",
-                            "termAccession": "",
-                            "termSource": "Raman Spectroscopy"
+                            "@id":"#140015153949608",
+                            "annotationValue":"cm-1",
+                            "termAccession":"",
+                            "termSource":"Raman Spectroscopy"
                         },
                         {
-                            "@id": "#140115470503104",
-                            "annotationValue": "Molarity",
-                            "termAccession": "",
-                            "termSource": "Amount Concentration"
+                            "@id":"#140015153949440",
+                            "annotationValue":"Molarity",
+                            "termAccession":"",
+                            "termSource":"Amount Concentration"
                         }
                     ]
                 }
             ],
-            "characteristicCategories": [],
-            "comments": [],
-            "description": "Peaks from Raman Spectra",
-            "factors": [],
-            "filename": "",
-            "identifier": "raman",
-            "materials": {
-                "otherMaterials": [],
-                "samples": [],
-                "sources": []
+            "characteristicCategories":[],
+            "comments":[],
+            "description":"Peaks from Raman Spectra",
+            "factors":[],
+            "filename":"",
+            "identifier":"Raman",
+            "materials":{
+                "otherMaterials":[],
+                "samples":[],
+                "sources":[]
             },
-            "people": [],
-            "processSequence": [],
-            "protocols": [],
-            "publicReleaseDate": "",
-            "publications": [
+            "people":[],
+            "processSequence":[],
+            "protocols":[],
+            "publicReleaseDate":"",
+            "publications":[
                 {
-                    "authorList": "",
-                    "doi": "10.1016/j.talanta.2006.02.008",
-                    "pubMedID": "",
-                    "status": {
-                        "@id": ""
+                    "authorList":"",
+                    "doi":"http://collections.mun.ca/cdm/compoundobject/collection/theses2/id/222115/rec/6",
+                    "pubMedID":"",
+                    "status":{
+                        "@id":""
                     },
-                    "title": "$^{27}\\text{Al}$ NMR and Raman spectroscopic studies of alkaline aluminate solutions with extremely high caustic content - Does the octahedral species $\\text{Al(OH)}_6^{-3}$ exist in solution?"
+                    "title":"Raman studies on the aluminate and carbonate anions in aqueous solutions."
                 }
             ],
-            "studyDesignDescriptors": [],
-            "submissionDate": "",
-            "title": "Raman Studies",
-            "unitCategories": []
+            "studyDesignDescriptors":[],
+            "submissionDate":"",
+            "title":"Zhou Raman studies",
+            "unitCategories":[]
         }
     ],
-    "submissionDate": "",
-    "title": "Aluminate Investigation"
+    "submissionDate":"",
+    "title":"Aluminate Investigation"
 }

@@ -54,6 +54,7 @@ def create_metadata():
     raman_spectra = OntologyAnnotation(term='raman spectra', term_source=raman)
 
     """
+    ###########################################################################
     Sipos 2006 Publication.
     """
     sipos_2006_pub = Publication(
@@ -107,7 +108,10 @@ def create_metadata():
 
 
 
-    """Zhou Publication"""
+    """
+    ###########################################################################
+    Zhou Publication
+    """
     zhou_thesis = Publication(
         title=(
             'Raman studies on the aluminate and carbonate '
@@ -135,6 +139,12 @@ def create_metadata():
         assays=[zhou_raman_assay]
 
     )
+
+
+    """
+    ###########################################################################
+    Shu-hua_2007 Publication
+    """
 
     ###########################################################################
     """Create the overall investigation."""
@@ -164,15 +174,12 @@ def create_metadata():
 
 
 def main():
-    """
-    :return:
-    """
-    metadata = create_metadata()
-    print(metadata)
-
-
-def write_json_file(path):
     """Writes the aluminate json entry to a specified folder."""
+    metadata = create_metadata()
+    path = '../data/nmr_metadata.json'
+    with open(path, 'w') as out_file:
+        out_file.write(metadata)
+    return
 
 
 if __name__ == '__main__':
