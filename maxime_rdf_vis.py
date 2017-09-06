@@ -3,6 +3,8 @@
 Maxime RDF Calculations
 =======================
 
+
+
 """
 
 import pandas as pd
@@ -54,9 +56,13 @@ def read_maximme_rdf(json_metadata_path, char_types):
                         data_frame_list.append(new_data_frame)
     data_frame =  pd.concat(data_frame_list, ignore_index=True)
 
+    # Drop RCN_Al-Ob   RCN_Al-Oh columns for now.
+    data_frame.drop('RCN_Al-Ob', 1, inplace=True)
+    data_frame.drop('RCN_Al-Oh', 1, inplace=True)
+
     data_frame = data_frame.melt(
         id_vars=["r", 'dimer'],
-        value_vars=['RDF_Al-Ob', 'RDF_Al-Oh', 'RCN_Al-Ob', 'RCN_Al-Oh'],
+        value_vars=['RDF_Al-Ob', 'RDF_Al-Oh',],# 'RCN_Al-Ob', 'RCN_Al-Oh'],
         value_name="inter atom distance",
         var_name="Atom Pair"
     )
@@ -117,7 +123,7 @@ def create_figure():
     )
     fig.xaxis.axis_label = x_title
     fig.yaxis.axis_label = y_title
-    fig.line(
+    fig.circle(
         x=xs,
         y=ys,
         color=c,

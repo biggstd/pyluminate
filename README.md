@@ -9,15 +9,14 @@ Its goal is to provide a visualizations of both the available literature data
 concerning aluminum in basic conditions as well as data generated from the 
 [IDREAM](http://efrc.pnnl.gov/idream/) project.
 
+
 ## TODO
 
-- [x] Create a demo & presentation for August 15th or 14th?
-- [x] Write the ISASetup.py script.
-- [x] Import all data previously stored in R databases into `.csv` format.
-- [x] Link the added databases within the ISA-script.
-- [x] Create functions to handle generating columns.
-- [ ] Finish the colum selection demo.
-- [ ] Write functions for ISA metadata additions.
+- [ ] Clean up project folder.
+- [ ] RDF-ISA integration handler(s).
+- [ ] Parse probability in RDF visualization.
+- [ ] Add Li transfer spectra.
+
 
 ## Standardized Column Headers
 
@@ -31,6 +30,7 @@ their corresponding `.csv` files. The table below shows the headers used.
 `wavelength`       | a wavelength peak, measured in cm<sup>-1</sup>.
 `temperature`      | The temperature of the experiment, given in Celsius.
 `Al_ppm`           | The peak of an <sup>27</sup>Al in ppm.
+
 
 ## Counter Ions tracked
 
