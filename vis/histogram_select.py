@@ -5,15 +5,42 @@ at your command prompt. Then navigate to the URL
     http://localhost:5006/selection_histogram
 in your browser.
 '''
-from vis_helper import create_dataframes
+# from vis_helper import create_dataframes
 
+import os
 import numpy as np
+import pandas as pd
+import json
 
 from bokeh.layouts import row, column
 from bokeh.models import BoxSelectTool, LassoSelectTool, Spacer
 from bokeh.plotting import figure, curdoc
 
-dataframes = create_dataframes('../data/nmr_metadata.json')
+
+def create_dataframes(json_metadata_path):
+    """Construct dataframes with the needed metadata attached."""
+    # Read the metadata json file constructed by ISASetup.py
+    with open(json_metadata_path, 'r') as md_file:
+        metadata = json.load(md_file)
+    # create a dataframes for each csv found
+    dataframe_list = []
+    for study in metadata['studies']:
+        # Store the doi/link
+        for publication in study['publications']:
+            doi = publication['doi']
+            # This is buggy, just picks the last one.
+            # They should all be the same the way I implemented it.
+        for assay in study['assays']:
+            for filename in assay['dataFiles']:
+                dataframe = pd.read_csv(filename['name'])
+                dataframe['doi'] = doi
+                dataframe_list.append(dataframe)
+    return pd.concat(dataframe_list)
+
+
+dataframes = create_dataframes('data/nmr_metadata.json')
+
+# print(dataframes)
 
 TOOLS="pan,wheel_zoom,box_select,lasso_select,reset"
 
@@ -25,8 +52,8 @@ p.background_fill_color = "#fafafa"
 p.select(BoxSelectTool).select_every_mousemove = False
 p.select(LassoSelectTool).select_every_mousemove = False
 
-x = dataframes['Al_ppm']
-y = dataframes['Al_concentration']
+x = dataframes['Al_ppm'].dropna()
+y = dataframes['wavelength'].dropna()
 
 r = p.scatter(x, y, size=3, color="#3A5785", alpha=0.6)
 

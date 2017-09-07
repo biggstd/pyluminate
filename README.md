@@ -16,7 +16,7 @@ concerning aluminum in basic conditions as well as data generated from the
 - [ ] RDF-ISA integration handler(s).
 - [ ] Parse probability in RDF visualization.
 - [ ] Add Li transfer spectra.
-
+- [ ] Prepare ISA handlers for incoming NMR data.
 
 ## Standardized Column Headers
 
