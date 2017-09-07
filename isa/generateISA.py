@@ -63,7 +63,10 @@ def create_metadata(data_path):
 
     :return:
     """
-    path = os.path.abspath(data_path)
+
+    def join_path(filename):
+        file_path = os.path.join(data_path, filename)
+        return file_path
 
     """
     Ontology Sources
@@ -135,10 +138,10 @@ def create_metadata(data_path):
         technology_platform='Bruker',
         units=[ppm, molarity],
         data_files=[
-            extractedCSV(filename=path + 'data/sipos2006-fig2.csv'),
-            extractedCSV(filename=path + 'data/sipos_2006_table1_nmr.csv'),
-            extractedCSV(filename=path + 'data/sipos_2006_table2.csv'),
-            extractedCSV(filename=path + 'data/sipos_2006_fig3.csv'),
+            extractedCSV(filename=join_path('sipos2006-fig2.csv')),
+            extractedCSV(filename=join_path('sipos_2006_table1_nmr.csv')),
+            extractedCSV(filename=join_path('sipos_2006_table2.csv')),
+            extractedCSV(filename=join_path('sipos_2006_fig3.csv')),
         ]
     )
 
@@ -148,8 +151,8 @@ def create_metadata(data_path):
         technology_platform='Unknown',
         units=[raman_peak, molarity],
         data_files=[
-            extractedCSV(filename=path + 'data/sipos_2006_figure_1.csv'),
-            extractedCSV(filename=path + 'data/sipos_2006_table1_raman.csv'),
+            extractedCSV(filename=join_path('sipos_2006_figure_1.csv')),
+            extractedCSV(filename=join_path('sipos_2006_table1_raman.csv')),
         ]
     )
 
@@ -187,7 +190,7 @@ def create_metadata(data_path):
         technology_platform='Unknown',
         units=[raman_peak, molarity],
         data_files=[
-            extractedCSV(filename=path + 'data/zhou_thesis.csv')
+            extractedCSV(filename=join_path('zhou_thesis.csv'))
         ]
     )
 
@@ -211,17 +214,17 @@ def create_metadata(data_path):
         technology_platform='Unknown',
         units=[raman_peak, molarity],
         data_files=[
-            MaximeVib(filename=path + 'data/d1.AlO.PWS'),
-            MaximeVib(filename=path + 'data/d1.el.PWS'),
+            MaximeVib(filename=join_path('d1.AlO.PWS')),
+            MaximeVib(filename=join_path('d1.el.PWS')),
 
-            MaximeVib(filename=path + 'data/d2.AlO.PWS'),
-            MaximeVib(filename=path + 'data/d2.el.PWS'),
+            MaximeVib(filename=join_path('d2.AlO.PWS')),
+            MaximeVib(filename=join_path('d2.el.PWS')),
 
-            MaximeVib(filename=path + 'data/d3.AlO.PWS'),
-            MaximeVib(filename=path + 'data/d3.el.PWS'),
+            MaximeVib(filename=join_path('d3.AlO.PWS')),
+            MaximeVib(filename=join_path('d3.el.PWS')),
 
-            MaximeVib(filename=path + 'data/d4.AlO.PWS'),
-            MaximeVib(filename=path + 'data/d4.el.PWS'),
+            MaximeVib(filename=join_path('d4.AlO.PWS')),
+            MaximeVib(filename=join_path('d4.el.PWS')),
 
         ]
     )
@@ -256,7 +259,7 @@ def create_metadata(data_path):
             Al_Oh_distance,
         ],
         data_files=[
-            MaximeRDF(filename=path + 'data/d1.RDF',),
+            MaximeRDF(filename=join_path('d1.RDF')),
         ]
     )
 
@@ -272,7 +275,7 @@ def create_metadata(data_path):
             Al_Oh_distance,
         ],
         data_files=[
-            MaximeRDF(filename=path + 'data/d2.RDF',),
+            MaximeRDF(filename=join_path('d2.RDF')),
         ]
     )
     maxime_d3_rdf_assay = Assay(
@@ -287,7 +290,7 @@ def create_metadata(data_path):
             Al_Oh_distance,
         ],
         data_files=[
-            MaximeRDF(filename=path + 'data/d3.RDF',),
+            MaximeRDF(filename=join_path('d3.RDF')),
         ]
     )
 
@@ -303,7 +306,7 @@ def create_metadata(data_path):
             Al_Oh_distance,
         ],
         data_files=[
-            MaximeRDF(filename=path + 'data/d4.RDF',),
+            MaximeRDF(filename=join_path('d4.RDF')),
         ]
     )
 
@@ -346,6 +349,7 @@ def create_metadata(data_path):
     """
     Create the metadata json entry.
     """
+
     metadata_json = json.dumps(
         Al_inv,
         cls=ISAJSONEncoder,
@@ -359,9 +363,9 @@ def create_metadata(data_path):
 
 def main():
     """Writes the aluminate json entry to a specified folder."""
-    nmr_metadata = create_metadata(path='../')
+    nmr_metadata = create_metadata(data_path='/home/tylerbiggs/git/pyluminate/data')
     logging.info(nmr_metadata)
-    path = '../data/nmr_metadata.json'
+    path = 'metadata.json'
     with open(path, 'w') as f:
         f.write(nmr_metadata)
 

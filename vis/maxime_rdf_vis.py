@@ -2,102 +2,54 @@
 =======================
 Maxime RDF Calculations
 =======================
-
-
-
 """
 
+import os
+import sys
 import pandas as pd
-import json
 from bokeh.palettes import Category20
 from bokeh.models import Select
-# from bokeh.layouts import layout
 from bokeh.layouts import row, widgetbox
 from bokeh.plotting import curdoc, figure
+# Add the parent path so that bokeh --serve can see the `vis`
+# module and import it.
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from vis.utils import read_rdf
 
+# Read the desired metadata file:
+# This returns a list of dataframes.
+data_frames = read_rdf('metadata.json', char_types=['Aluminate Species'])
 
-def create_pandas_df(path):
-    # Read the csv file
-    df = pd.read_csv(
-        filepath_or_buffer=path,
-        index_col=False,
-        sep='\s+'  # Split by whitespace
-    )
-
-    # Move the columns to deal with the leading hashtag
-    df_mod = df[df.columns[:-1]]
-    df_mod.columns = df.columns[1:]
-
-    return df_mod
-
-
-def read_maximme_rdf(json_metadata_path, char_types):
-    """Construct dataframes with the needed metadata attached."""
-
-    # Open the file.
-    with open(json_metadata_path, 'r') as f:
-        metadata = json.load(f)
-
-    # Create an empty list to append the paths to.
-    data_frame_list = []
-
-    # Iterate through the studies.
-    for studies in metadata['studies']:
-        for assays in studies['assays']:
-            for char in assays['characteristicCategories']:
-                if char['characteristicType']['termSource'] in char_types:
-                    # We found a matching termSource, so get the annotationValue
-                    dimer_type = char['characteristicType']['annotationValue']
-                    for data_file in assays['dataFiles']:
-                        # Create the new dataframe
-                        new_data_frame = create_pandas_df(data_file['name'])
-                        # Add the desired metadata to the data frame:
-                        new_data_frame['dimer'] = dimer_type
-                        data_frame_list.append(new_data_frame)
-    data_frame =  pd.concat(data_frame_list, ignore_index=True)
-
-    # Drop RCN_Al-Ob   RCN_Al-Oh columns for now.
-    data_frame.drop('RCN_Al-Ob', 1, inplace=True)
-    data_frame.drop('RCN_Al-Oh', 1, inplace=True)
-
-    data_frame = data_frame.melt(
-        id_vars=["r", 'dimer'],
-        value_vars=['RDF_Al-Ob', 'RDF_Al-Oh',],# 'RCN_Al-Ob', 'RCN_Al-Oh'],
-        value_name="inter atom distance",
-        var_name="Atom Pair"
-    )
-
-    return data_frame
-
-
-df = read_maximme_rdf('data/nmr_metadata.json', char_types=['Aluminate Species'])
-
-
+# Define colors and sizes to be used later.
 SIZES = list(range(6, 22, 3))
 COLORS = Category20[20]
 
-
-columns = sorted(df.columns)
-discrete = [x for x in columns if df[x].dtype == object]
-continuous = [x for x in columns if x not in discrete]
-quantileable = [x for x in continuous if len(df[x].unique()) > 20]
-
+# Data wrangling.
+ysl = [df['RDF_Al-Ob'] for df in dataframes]
+xsl = [df['r'] for df in dataframes]
 
 def create_figure():
+
     # Assign the x and y values to those selected.
     xs = df[x_sel.value].values
     ys = df[y_sel.value].values
+
     # Get the titles from those selected.
     x_title = x_sel.value.title()
     y_title = y_sel.value.title()
+
     # Create a dictionary to pass to the bokeh plot.
     kw = dict()
+
     # Check if the x and y axis values are discrete.
     # if so use the low level dict key word to set the range appropriately.
     if x_sel.value in discrete:
         kw['x_range'] = sorted(set(xs))
     if y_sel.value in discrete:
         kw['y_range'] = sorted(set(ys))
+
     # Set a default size for the points
     # sz = 9
     # if size.value != 'None':
@@ -112,7 +64,8 @@ def create_figure():
         if color.value in discrete:
             c = [COLORS[xx] for xx in df[color.value].factorize()[0]]
         else:
-            groups = pd.qcut(df[color.value].values, len(SIZES), duplicates='drop')
+            groups = pd.qcut(
+                df[color.value].values, len(SIZES), duplicates='drop')
             c = [COLORS[xx] for xx in groups.codes]
     # Assign the titles.
     fig = figure(
@@ -143,14 +96,23 @@ def update(attr, old, new):
 
 
 # Create the inputs
-x_sel = Select(title='X-Axis', value='r', options=columns)
+x_sel = Select(
+    title='X-Axis',
+    value='r',
+    options=columns)
 x_sel.on_change('value', update)
 
-y_sel = Select(title='Y-Axis', value='inter atom distance', options=columns)
+y_sel = Select(
+    title='Y-Axis',
+    value='inter atom distance',
+    options=columns)
 y_sel.on_change('value', update)
 
 # Create the color input.
-color = Select(title='Color', value='None', options=['None'] + discrete + quantileable)
+color = Select(
+    title='Color',
+    value='None',
+    options=['None'] + discrete + quantileable)
 color.on_change('value', update)
 
 # Create the size input

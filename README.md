@@ -12,7 +12,7 @@ concerning aluminum in basic conditions as well as data generated from the
 
 ## TODO
 
-- [ ] Fix data file paths in the ISA generation script.
+- [X] Fix data file paths in the ISA generation script.
 - [x] Clean up project folder.
 - [x] RDF-ISA integration handler(s).
 - [ ] Parse probability in RDF visualization.
