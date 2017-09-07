@@ -9,6 +9,7 @@ from isatools.isajson import ISAJSONEncoder
 import json
 import logging
 import os
+import sys
 
 
 class extractedCSV(DataFile):
@@ -363,7 +364,8 @@ def create_metadata(data_path):
 
 def main():
     """Writes the aluminate json entry to a specified folder."""
-    nmr_metadata = create_metadata(data_path='/home/tylerbiggs/git/pyluminate/data')
+    my_data_path = os.path.abspath('data')
+    nmr_metadata = create_metadata(data_path=my_data_path)
     logging.info(nmr_metadata)
     path = 'metadata.json'
     with open(path, 'w') as f:
