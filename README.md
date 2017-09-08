@@ -12,10 +12,11 @@ concerning aluminum in basic conditions as well as data generated from the
 
 ## TODO
 
-- [X] Fix data file paths in the ISA generation script.
+- [x] RDF plotting work.
+- [x] Fix data file paths in the ISA generation script.
 - [x] Clean up project folder.
 - [x] RDF-ISA integration handler(s).
-- [ ] Parse probability in RDF visualization.
+- [x] Parse probability in RDF visualization.
 - [ ] Add Li transfer spectra.
 - [ ] Prepare ISA handlers for incoming NMR data.
 
