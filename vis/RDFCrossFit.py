@@ -18,6 +18,11 @@ It can show a variable number of plots, based on the options.
 + There should be a stacked selection view.?
 """
 
+# Basic imports
+import os
+import sys
+import itertools
+import collections
 # Bokeh imports
 from bokeh.plotting import figure
 from bokeh.layouts import layout, widgetbox
@@ -26,15 +31,16 @@ from bokeh.models.widgets import Select, MultiSelect, CheckboxGroup
 from bokeh.palettes import Category20
 from bokeh.io import curdoc
 # Local, relative module imports
+sys.path.append(os.getcwd())
 from vis.utils import read_rdf
-import collections
 
 
 # From the metadata, load the desired data into pandas dataframes.
 # Each dataframe has an attribute attached by the read_rdf function.
 # This characteristics attribute is a dictioary of values. The entires
 # for 'Inter-atom distances' are the bonds within that dataframe.
-dataframes = read_rdf('../metadata.json', char_types=['Aluminate Species'])
+metadata_path = os.path.join(os.getcwd(), 'metadata.json')
+dataframes = read_rdf(metadata_path, char_types=['Aluminate Species'])
 
 # Since we can se all the bonds and species at this point, we can build
 # the input lists options. First create an empty dictionary. A collections
@@ -53,20 +59,41 @@ These need to be added to the controls list at the bottom of the file.
 """
 
 compound_sel = MultiSelect(
+    # value=None,
     title="Compound",
-    options=available_cmpds_dict.keys(),
+    options=list(available_cmpds_dict.keys()),
 )
+
+
+def cmpd_sel_handler(attr, old, new):
+    """Create a handler for the compound selection call back. The form
+    of (attr, old, new) is requried by bokeh for selectinoo callbacks."""
+    update()
+    return
+
+
+compound_sel.on_change('value', cmpd_sel_handler)
+
 
 bonds_grp = CheckboxGroup(
-    title="Bond",
-    options=available_cmpds_dict[compound_sel.value]
+    labels=list(itertools.chain(
+        [available_cmpds_dict[xx] for xx in compound_sel.value])),
 )
 
-stack_sel = Select(
-    title="Plot Arrangement",
-    options=['Overlap', 'Separate'],
-    value='Overlap'
-)
+
+def bnds_grp_handler():
+    update()
+    return
+
+
+bonds_grp.on_click(bnds_grp_handler)
+
+
+# stack_sel = Select(
+#     title="Plot Arrangement",
+#     options=['Overlap', 'Separate'],
+#     value='Overlap'
+# )
 
 
 # Define the dataframe selection function.
@@ -129,6 +156,26 @@ def create_figures(active_frames):
 
 # TODO: Define the metadata detail div
 
+# Add the controls
+controls = [
+    compound_sel,
+    bonds_grp,
+    # stack_sel,
+]
+
+
+# Create a widget box for the inputs to be carried in.
+sizing_mode = 'fixed'
+inputs = widgetbox(*controls, sizing_mode=sizing_mode)
+
+
+# Create the layout
+def create_layout(fig):
+    my_layout = layout([
+        [inputs, fig],
+    ], sizing_mode=sizing_mode)
+    return my_layout
+
 
 # Define the update function
 def update():
@@ -150,34 +197,9 @@ def update():
     return
 
 
-# Add the controls
-controls = [
-    compound_sel,
-    bonds_grp,
-    stack_sel,
-]
-
-
-# Create a widget box for the inputs to be carried in.
-sizing_mode = 'fixed'
-inputs = widgetbox(*controls, sizing_mode=sizing_mode)
-
-# Add the controls on_change() function
-for control in controls:
-    control.on_change('value', lambda attr, old, new: update())
-
-
-# Create the layout
-def create_layout(fig):
-    my_layout = layout([
-        [inputs, fig],
-    ], sizing_mode=sizing_mode)
-    return my_layout
-
-
 # Run update to load the default dataset
 update()
 
 # Add the laout to the current document and set it up
-curdoc().add_root(create_layout())
+# curdoc().add_root(create_layout())
 curdoc().title = "RDV Viewer"
