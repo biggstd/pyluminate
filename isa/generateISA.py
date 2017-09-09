@@ -100,7 +100,7 @@ def create_metadata(data_path):
         term='(OH)3Al-O-Al(OH)32-+ 180 H2O + 2 Na+',
         term_source=aluminate)
     aluminate_dimer_2 = OntologyAnnotation(
-        term=' (OH)3Al-(OH)-Al(OH)3- + 179 H2O + HO- + 2 Na+',
+        term='(OH)3Al-(OH)-Al(OH)3- + 179 H2O + HO- + 2 Na+',
         term_source=aluminate)
     aluminate_dimer_3 = OntologyAnnotation(
         term='(OH)3Al-(OH)2 -Al(OH)3- + 179 H2O + 2 Na+',
@@ -114,11 +114,12 @@ def create_metadata(data_path):
         term_source=simulation)
 
     Al_Ob_distance = OntologyAnnotation(
-        term='Distance between bridging oxygen and Al.',
+        term='Al-Ob',
         term_source=inter_atom_distance)
-    Al_Oh_distance =OntologyAnnotation(
-        term='Distance between lateral hydroxyl and Al.',
-        term_source = inter_atom_distance)
+
+    Al_Oh_distance = OntologyAnnotation(
+        term='Al-OH',
+        term_source=inter_atom_distance)
 
 
     """
