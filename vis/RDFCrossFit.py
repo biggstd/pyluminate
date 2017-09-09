@@ -75,6 +75,7 @@ stack_sel = Select(
 def select_RDFs():
     """
     Examines the input(s) and loads the appropriate dataframes.
+    Returns a list of pandas dataframes.
     """
     # Create an empty list of dataframes that will be displayed:
     displayed_df_l = list()
@@ -96,27 +97,34 @@ def create_figures():
     # Declare the figure:
     fig = figure()
 
-    # Add the hover tool:
-    fig.add_tools(HoverTool(tooltips=[
-        ("Radius", "@r"),
-        ("Probability", "@{RDF_Al-Oh}"),
-        ("Connectivity", "@{RCN_Al-Oh}")
-    ]))
-
     # Declare the colors to be used:
+    # TODO: look for a more robust way to handle colors
     colors = Category20[len(dataframes)]
 
     # Iterate through the data frames to be used.
     for (df, df_color) in zip(active_frames, colors):
+
+        # Declare the source from the current frame:
         fig_source = ColumnDataSource(df)
-        fig.line(
-            source=fig_source,
-            x='r',
-            y='RDF_Al-Oh',
-            legend=df.characteristics['Aluminate Species'][0],
-            color=df_color,
-            line_width=1.5
-        )
+
+        # Add the hover tool:
+        # TODO: needs to take from the characteristics metadata dict.
+        fig.add_tools(HoverTool(tooltips=[
+            ("Radius", "@r"),
+        ]))
+
+        # Iterate over the bonds selected.
+        for bond in df.characteristics['Inter-atom distances']:
+
+            # Draw a line plot
+            fig.line(
+                source=fig_source,
+                x='r',
+                y=bond,
+                legend=df.characteristics['Aluminate Species'][0],
+                color=df_color,
+                line_width=1.5
+            )
 
     return fig
 
@@ -128,7 +136,23 @@ def create_info_div():
 
 # Define the update function
 def update():
-    pass
+    
+    df = select_RDFs()
+    x_name = axis_map[x_axis.value]
+    y_name = axis_map[y_axis.value]
+
+    p.xaxis.axis_label = x_axis.value
+    p.yaxis.axis_label = y_axis.value
+    p.title.text = "%d movies selected" % len(df)
+    source.data = dict(
+        x=df[x_name],
+        y=df[y_name],
+        color=df["color"],
+        title=df["Title"],
+        year=df["Year"],
+        revenue=df["revenue"],
+        alpha=df["alpha"],
+    )
 
 
 # Add the controls
