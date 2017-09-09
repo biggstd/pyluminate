@@ -27,7 +27,7 @@ import collections
 from bokeh.plotting import figure
 from bokeh.layouts import layout, widgetbox
 from bokeh.models import ColumnDataSource, HoverTool
-from bokeh.models.widgets import Select, MultiSelect, CheckboxGroup
+from bokeh.models.widgets import MultiSelect, CheckboxGroup
 from bokeh.palettes import Category20
 from bokeh.io import curdoc
 # Local, relative module imports
@@ -52,6 +52,10 @@ for frame in dataframes:
     available_cmpds_dict[frame.characteristics['Aluminate Species'][0]].extend(
         frame.characteristics['Inter-atom distances'])
 
+# From these characteristics, generate a ColumnDataSource for the dynamic
+# inputs to use.
+input_src = ColumnDataSource(data=available_cmpds_dict)
+
 """
 # CONTROLS
 Define the Controls (for variable name use in the functions below.)
@@ -59,41 +63,14 @@ These need to be added to the controls list at the bottom of the file.
 """
 
 compound_sel = MultiSelect(
-    # value=None,
     title="Compound",
-    options=list(available_cmpds_dict.keys()),
+    options=list(input_src.data.keys()),
 )
-
-
-def cmpd_sel_handler(attr, old, new):
-    """Create a handler for the compound selection call back. The form
-    of (attr, old, new) is requried by bokeh for selectinoo callbacks."""
-    update()
-    return
-
-
-compound_sel.on_change('value', cmpd_sel_handler)
-
 
 bonds_grp = CheckboxGroup(
-    labels=list(itertools.chain(
-        [available_cmpds_dict[xx] for xx in compound_sel.value])),
+    labels=[],
+    # bonds_grp.active gives the index list of those items selected.
 )
-
-
-def bnds_grp_handler():
-    update()
-    return
-
-
-bonds_grp.on_click(bnds_grp_handler)
-
-
-# stack_sel = Select(
-#     title="Plot Arrangement",
-#     options=['Overlap', 'Separate'],
-#     value='Overlap'
-# )
 
 
 # Define the dataframe selection function.
@@ -104,10 +81,21 @@ def select_RDFs():
     """
     # Create an empty list of dataframes that will be displayed:
     displayed_df_l = list()
-    # Set the list of compounds to those selected in the input.
-    compounds = compound_sel.value
+
+    # Set the list of bonds to those selected in the input.
+    bonds_active_index = bonds_grp.active
+
+    # Get the current bond_grps labels:
+    curr_bnds_labels = bonds_grp.labels
+
+    # Build the current bonds
+    bonds_l = [curr_bnds_labels[ii] for ii in bonds_active_index]
+    print('bond list', bonds_l)
+
     for frame in dataframes:
-        if any(compounds) in frame.characteristics['Aluminate Species']:
+        print('frame chars', frame.characteristics['Inter-atom distances'])
+        # if any(bonds_l) in frame.characteristics['Inter-atom distances']:
+        if bool(set(bonds_l) & set(frame.characteristics['Inter-atom distances'])):
             displayed_df_l.append(frame)
 
     return displayed_df_l
@@ -156,28 +144,28 @@ def create_figures(active_frames):
 
 # TODO: Define the metadata detail div
 
-# Add the controls
-controls = [
-    compound_sel,
-    bonds_grp,
-    # stack_sel,
-]
-
-
 # Create a widget box for the inputs to be carried in.
+# Define a sizing_mode
 sizing_mode = 'fixed'
-inputs = widgetbox(*controls, sizing_mode=sizing_mode)
+
+# Create a widget box for the static widgets, and one for the dynamnic.
+static_widgets = widgetbox(compound_sel, sizing_mode=sizing_mode)
+dynamnic_widgets = widgetbox(bonds_grp, sizing_mode=sizing_mode)
 
 
 # Create the layout
 def create_layout(fig):
     my_layout = layout([
-        [inputs, fig],
+        [static_widgets],
+        [dynamnic_widgets],
+        [fig],
     ], sizing_mode=sizing_mode)
     return my_layout
 
 
 # Define the update function
+# TODO: Create a decorator so that I can re-use code for the other type
+# of callback function?
 def update():
     """Function that runs upon initialization and whenever the user
     interacts with an input."""
@@ -189,7 +177,7 @@ def update():
     new_fig = create_figures(active_frame_list)
 
     # Clear the current document.
-    curdoc().clear()
+    # curdoc().clear()
 
     # Add the new layout to the curdoc() function.
     curdoc().add_root(create_layout(new_fig))
@@ -197,9 +185,28 @@ def update():
     return
 
 
+def selector_update(attr, old, new):
+
+    # Declare a new bond label list.
+    new_bond_labels = list()
+
+    for x in compound_sel.value:
+        new_bond_labels.extend(input_src.data[x])
+
+    bonds_grp.labels = list(set(new_bond_labels))
+    update()
+    pass
+
+
+def click_update(new):
+    print(select_RDFs())
+    update()
+    return
+
+
+compound_sel.on_change('value', selector_update)
+bonds_grp.on_click(click_update)
+
 # Run update to load the default dataset
 update()
-
-# Add the laout to the current document and set it up
-# curdoc().add_root(create_layout())
 curdoc().title = "RDV Viewer"
