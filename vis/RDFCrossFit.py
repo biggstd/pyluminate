@@ -18,12 +18,10 @@ It can show a variable number of plots, based on the options.
 + There should be a stacked selection view.?
 """
 
-# Basic data science imports
-import pandas as pd
 # Bokeh imports
 from bokeh.plotting import figure
 from bokeh.layouts import layout, widgetbox
-from bokeh.models import ColumnDataSource, HoverTool, Div
+from bokeh.models import ColumnDataSource, HoverTool
 from bokeh.models.widgets import Select, MultiSelect, CheckboxGroup
 from bokeh.palettes import Category20
 from bokeh.io import curdoc
@@ -89,7 +87,7 @@ def select_RDFs():
 
 
 # Define the plotting function
-def create_figures():
+def create_figures(active_frames):
 
     # Get the active dataframes to be plotted:
     active_frames = select_RDFs()
@@ -129,30 +127,27 @@ def create_figures():
     return fig
 
 
-# Define the metadata detail div
-def create_info_div():
-    pass
+# TODO: Define the metadata detail div
 
 
 # Define the update function
 def update():
-    
-    df = select_RDFs()
-    x_name = axis_map[x_axis.value]
-    y_name = axis_map[y_axis.value]
+    """Function that runs upon initialization and whenever the user
+    interacts with an input."""
 
-    p.xaxis.axis_label = x_axis.value
-    p.yaxis.axis_label = y_axis.value
-    p.title.text = "%d movies selected" % len(df)
-    source.data = dict(
-        x=df[x_name],
-        y=df[y_name],
-        color=df["color"],
-        title=df["Title"],
-        year=df["Year"],
-        revenue=df["revenue"],
-        alpha=df["alpha"],
-    )
+    # Get the list of active data frames based on user input.
+    active_frame_list = select_RDFs()
+
+    # Create the figures based on the retrieved dataframe list.
+    new_fig = create_figures(active_frame_list)
+
+    # Clear the current document.
+    curdoc().clear()
+
+    # Add the new layout to the curdoc() function.
+    curdoc().add_root(create_layout(new_fig))
+
+    return
 
 
 # Add the controls
@@ -167,14 +162,16 @@ controls = [
 sizing_mode = 'fixed'
 inputs = widgetbox(*controls, sizing_mode=sizing_mode)
 
+# Add the controls on_change() function
+for control in controls:
+    control.on_change('value', lambda attr, old, new: update())
+
 
 # Create the layout
-def create_layout():
+def create_layout(fig):
     my_layout = layout([
-            [info_div],
-            [inputs, fig],
-        ],
-        sizing_mode=sizing_mode)
+        [inputs, fig],
+    ], sizing_mode=sizing_mode)
     return my_layout
 
 
