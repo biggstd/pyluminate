@@ -118,7 +118,7 @@ def create_metadata(data_path):
         term_source=inter_atom_distance)
 
     Al_Oh_distance = OntologyAnnotation(
-        term='Al-OH',
+        term='Al-Oh',
         term_source=inter_atom_distance)
 
 
