@@ -51,6 +51,13 @@ for frame in dataframes:
 # inputs to use.
 input_src = ColumnDataSource(data=available_cmpds_dict)
 
+# Create a columndatasource to hold the names of the active data frames.
+input_source = ColumnDataSource(
+    data=dict(
+        'active': [],
+    )
+)
+
 """
 # CONTROLS
 Define the Controls (for variable name use in the functions below.)
@@ -60,7 +67,7 @@ These need to be added to the controls list at the bottom of the file.
 compound_sel = MultiSelect(
     title="Compound",
     options=list(input_src.data.keys()),
-    value=[list(input_src.data.keys())[0]]
+    # value=[list(input_src.data.keys())[0]]
 )
 
 bonds_grp = CheckboxGroup(
@@ -89,7 +96,7 @@ def select_RDFs():
         # Get the frame's compound.
         df_species = frame.characteristics['Aluminate Species'][0]
         # Get the selected compound.
-        active_cmpd_l = compound_sel.value
+        active_cmpd_l = input_source.data['active']
         if df_species in active_cmpd_l and\
             bool(
                 set(bonds_l) &
@@ -206,19 +213,20 @@ def update():
     Function that runs upon initialization and whenever the user
     interacts with an input.
     """
-
     # Get the list of active data frames based on user input.
     active_frame_list = select_RDFs()
-
     # Create the figures based on the retrieved dataframe list.
     new_fig = create_figures(active_frame_list)
-
     # Create the new info div
     new_div = create_div()
 
-    # Add the new layout to the curdoc() function.
-    curdoc().clear()
-    curdoc().add_root(create_layout(new_fig, new_div))
+    # update the input_source active and inactive dictionaries
+    # the items in this dict should be the values in compound_sel
+    source_patch_dict = {
+        'active':   [ (slice(None) ), compound_sel.value ],
+    }
+    # Patch the data source
+    input_source.patch(source_patch_dict)
 
     return
 
@@ -228,9 +236,11 @@ def selector_update(attr, old, new):
     # Declare a new bond label list.
     new_bond_labels = list()
 
+    # use the seelcted values to build the compound list
     for x in compound_sel.value:
         new_bond_labels.extend(input_src.data[x])
 
+    # create a list of unique (set) for the bond_grp labels.
     bonds_grp.labels = list(set(new_bond_labels))
     update()
     pass
@@ -243,6 +253,15 @@ def click_update(new):
 
 compound_sel.on_change('value', selector_update)
 bonds_grp.on_click(click_update)
+
+# INITIALIZE THE APPLICATION
+initial_frame_l = select_RDFs()
+# Create the figures based on the retrieved dataframe list.
+initial_fig = create_figures(initial_frame_l)
+# Create the new info div
+initial_div = create_div()
+# Add the new layout to the curdoc() function.
+curdoc().add_root(create_layout(initial_fig, initial_div))
 
 # Run update to load the default dataset
 update()
