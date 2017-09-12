@@ -15,7 +15,7 @@ from bokeh.plotting import figure
 from bokeh.layouts import layout, widgetbox
 from bokeh.models import ColumnDataSource, HoverTool
 from bokeh.models.widgets import MultiSelect, CheckboxGroup, Div
-from bokeh.palettes import Category20
+from bokeh.palettes import linear_palette, viridis
 from bokeh.io import curdoc
 # Local, relative module imports
 sys.path.append(os.getcwd())
@@ -115,9 +115,6 @@ def create_figures(active_frames):
     a testing state, and much of it should change.
     """
 
-    # Get the active dataframes to be plotted:
-    # active_frames = select_RDFs()
-
     # Get the current bond_grps labels and the index of the selected:
     bonds_active_index = bonds_grp.active
     curr_bnds_labels = bonds_grp.labels
@@ -137,19 +134,37 @@ def create_figures(active_frames):
     # TODO: look for a more robust way to handle colors
     # To generate an intuitive color palette:
     # Each dataframes should each have a
+    df_count = len(active_frames)
 
+    # Create sub-sets of colors, outputs a list of colors
+    color_break = viridis(df_count)
 
-    colors = Category20[len(dataframes)]
-
-    # Iterate through the data frames to be used.
-    for (df, df_color) in zip(active_frames, colors):
+    # enumerate through the data frames to be used and the index value.
+    # enumerate() is used as zip() failes when there is only one item.
+    for idx, df in enumerate(active_frames):
 
         # Declare the source from the current frame:
         fig_source = ColumnDataSource(df)
 
+        # Count the number of bonds to generate the color sub-set
+        bond_count = len(bonds_l)
+        # Get the 'pair' or range of color palettes to use
+        if idx == 0:
+            col_start = 0
+            col_end = 1
+        else:
+            col_start = idx - 1
+            col_end = idx
+        # use the start and end to generate intermediate colors.
+        bond_pallet = linear_palette(
+            color_break[col_start:col_end], bond_count)
+
         # Iterate over the bonds selected.
         # TODO: iterates over all available bonds, rather than the selected
-        for bond in bonds_l:
+        for idxx, bond in enumerate(bonds_l):
+
+            # Count the number of bonds for color generation
+            bond_color = bond_pallet[idx]
 
             active_bond = 'RDF_' + bond
             fig.line(  # Draw a line plot
@@ -157,7 +172,7 @@ def create_figures(active_frames):
                 x='r',
                 y=active_bond,
                 legend=df.characteristics['Aluminate Species'][0],
-                color=df_color,
+                color=bond_color,
                 line_width=1.5
             )
 
@@ -166,7 +181,7 @@ def create_figures(active_frames):
                 x='r',
                 y=active_bond,
                 legend=df.characteristics['Aluminate Species'][0],
-                color=df_color,
+                color=bond_color,
             )
 
     return fig

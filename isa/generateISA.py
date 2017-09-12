@@ -238,7 +238,7 @@ def create_metadata(data_path):
         description=(
             "In the PWS files the vibrational power spectra are obtained from "
             "the atomic velocity autocorrelation function (VACF). These are the "
-            "vibrational spectra you would obtain if you didn’t have any "
+            "vibrational spectra you would obtain if you didn't have any "
             "selection rule, so essentially you get all the possible bands "
             "with the correct frequencies but the intensities are not directly "
             "related to the IR or Raman ones. Still, you can definitely extract "
@@ -320,7 +320,7 @@ def create_metadata(data_path):
             "1st column: r (distance with respect to the 1st"
             " atom of the pair type) in angstroms."
             " The following columns are the RDFs for different "
-            "pair types (i.e. ‘Al-O’) mentioned in the header, "
+            "pair types (i.e. 'Al-O') mentioned in the header, "
             "and finally the columns correspond to the running "
             "coordination numbers for these same pair types."
         ),
