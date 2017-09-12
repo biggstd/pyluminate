@@ -52,9 +52,9 @@ for frame in dataframes:
 input_src = ColumnDataSource(data=available_cmpds_dict)
 
 # Create a columndatasource to hold the names of the active data frames.
-input_source = ColumnDataSource(
+data_source = ColumnDataSource(
     data=dict(
-        'active': [],
+        active=[],
     )
 )
 
@@ -96,14 +96,17 @@ def select_RDFs():
         # Get the frame's compound.
         df_species = frame.characteristics['Aluminate Species'][0]
         # Get the selected compound.
-        active_cmpd_l = input_source.data['active']
+        active_cmpd_l = data_source.data['active']
         if df_species in active_cmpd_l and\
             bool(
                 set(bonds_l) &
                 set(frame.characteristics['Inter-atom distances'])):
             displayed_df_l.append(frame)
 
-    return displayed_df_l
+    # From this, set the data_source active column to the active frames
+    data_source.data.active = displayed_df_l
+
+    return
 
 
 def create_figures(active_frames):
@@ -132,6 +135,10 @@ def create_figures(active_frames):
 
     # Declare the colors to be used:
     # TODO: look for a more robust way to handle colors
+    # To generate an intuitive color palette:
+    # Each dataframes should each have a
+
+
     colors = Category20[len(dataframes)]
 
     # Iterate through the data frames to be used.
@@ -143,6 +150,7 @@ def create_figures(active_frames):
         # Iterate over the bonds selected.
         # TODO: iterates over all available bonds, rather than the selected
         for bond in bonds_l:
+
             active_bond = 'RDF_' + bond
             fig.line(  # Draw a line plot
                 source=fig_source,
@@ -152,13 +160,13 @@ def create_figures(active_frames):
                 color=df_color,
                 line_width=1.5
             )
-            fig.circle(  # Draw a line plot
+
+            fig.circle(  # Draw a circle/dot plot
                 source=fig_source,
                 x='r',
                 y=active_bond,
                 legend=df.characteristics['Aluminate Species'][0],
                 color=df_color,
-                # line_width=1.5
             )
 
     return fig
@@ -214,19 +222,13 @@ def update():
     interacts with an input.
     """
     # Get the list of active data frames based on user input.
-    active_frame_list = select_RDFs()
-    # Create the figures based on the retrieved dataframe list.
-    new_fig = create_figures(active_frame_list)
-    # Create the new info div
-    new_div = create_div()
+    select_RDFs()
 
-    # update the input_source active and inactive dictionaries
-    # the items in this dict should be the values in compound_sel
     source_patch_dict = {
-        'active':   [ (slice(None) ), compound_sel.value ],
+        'active': [(slice()), compound_sel.value],
     }
     # Patch the data source
-    input_source.patch(source_patch_dict)
+    data_source.patch(source_patch_dict)
 
     return
 
