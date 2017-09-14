@@ -12,7 +12,8 @@ import sys
 import collections
 # Bokeh imports
 from bokeh.plotting import figure
-from bokeh.layouts import layout, widgetbox
+from bokeh.layouts import layout, widgetbox, row, column
+from bokeh.client import push_session
 from bokeh.models import ColumnDataSource, HoverTool
 from bokeh.models.widgets import MultiSelect, CheckboxGroup, Div
 from bokeh.palettes import linear_palette, viridis
