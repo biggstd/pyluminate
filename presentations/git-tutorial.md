@@ -5,6 +5,8 @@ A brief overview of the installation of git, and regularly used commands.
 
 By Tyler Biggs
 
+[The official documentation and tutorial for git.](https://git-scm.com/docs/gittutorial)
+
 
 Installing Git
 --------------
@@ -36,11 +38,67 @@ $ git config --global user.email biggstd@gmail.com
 **View Config** You can view your settings.
 
 ```
-git config --list
+$ git config --list
 ```
+
+We are now ready to use git!
 
 
 Creating a Repository
 ---------------------
 
-We are now ready to use git!
+Navigate to the desired parent folder that you wish to track and call:
+
+```
+$ git init
+```
+
+Importantly, this does not set up git to track anything within that directory.
+
+
+Tracking Files in a Repository
+------------------------------
+
+**Add all files**
+```
+$ git add .
+```
+
+**Add all previously tracked files**
+```
+git add -u
+```
+
+
+Managing Branches
+-----------------
+
+A branch is a branch is a branch. Most git repositories have a `master` branch. This is
+because `git init` creates this as a default branch.
+
+**Show Branches**
+```
+git branch
+```
+
+**Create a new branch**
+```
+git branch <new_branch>
+```
+
+**Switch Branches**
+```
+git checkout <branch name>
+```
+
+
+**Merging Branches**
+```
+	  A---B---C topic
+	 /
+    D---E---F---G master
+```
+
+With current branch of `master`.
+
+
