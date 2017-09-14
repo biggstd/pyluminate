@@ -96,7 +96,11 @@ def select_RDFs():
         # Get the frame's compound.
         df_species = frame.characteristics['Aluminate Species'][0]
         # Get the selected compound.
-        active_cmpd_l = data_source.data['active']
+        # active_cmpd_l = data_source.data['active'] PROBLEM <--
+        active_cmpd_l = compound_sel.value
+        print('Checking frame: {}'.format(frame.keys()))
+        print('df_species', df_species)
+        print('active_cmpd_l', active_cmpd_l)
         if df_species in active_cmpd_l and\
             bool(
                 set(bonds_l) &
@@ -104,16 +108,19 @@ def select_RDFs():
             displayed_df_l.append(frame)
 
     # From this, set the data_source active column to the active frames
-    data_source.data.active = displayed_df_l
+    data_source.data = dict(active=displayed_df_l)
 
     return
 
 
-def create_figures(active_frames):
+def create_figures():
     """
     Creates the figure to be returned. Right now this function is in
     a testing state, and much of it should change.
     """
+
+    # Get the current/active compounds from data_source.data.active
+    active_frames = data_source.data['active']
 
     # Get the current bond_grps labels and the index of the selected:
     bonds_active_index = bonds_grp.active
@@ -228,22 +235,20 @@ def create_layout(fig, div):
     return my_layout
 
 
-# Define the update function
-# TODO: Create a decorator so that I can re-use code for the other type
-# of callback function?
 def update():
     """
     Function that runs upon initialization and whenever the user
     interacts with an input.
+
+    .. todo:: Consider turning this into a decorator for use in/on the
+    other controls callback functions.
     """
+    print(input_src.data)
+    print(data_source.data)
+
     # Get the list of active data frames based on user input.
     select_RDFs()
-
-    source_patch_dict = {
-        'active': [(slice()), compound_sel.value],
-    }
-    # Patch the data source
-    data_source.patch(source_patch_dict)
+    # data_source.data.active = compound_sel.value
 
     return
 
@@ -260,7 +265,7 @@ def selector_update(attr, old, new):
     # create a list of unique (set) for the bond_grp labels.
     bonds_grp.labels = list(set(new_bond_labels))
     update()
-    pass
+    return
 
 
 def click_update(new):
@@ -272,14 +277,15 @@ compound_sel.on_change('value', selector_update)
 bonds_grp.on_click(click_update)
 
 # INITIALIZE THE APPLICATION
-initial_frame_l = select_RDFs()
+select_RDFs()
 # Create the figures based on the retrieved dataframe list.
-initial_fig = create_figures(initial_frame_l)
+initial_fig = create_figures()
 # Create the new info div
 initial_div = create_div()
 # Add the new layout to the curdoc() function.
+update()
+
 curdoc().add_root(create_layout(initial_fig, initial_div))
 
 # Run update to load the default dataset
-update()
 curdoc().title = "RDV Viewer"
