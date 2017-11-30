@@ -6,3 +6,7 @@
 __pycache__/bokeh_demo.cpython-35.pyc
 aluminumflask/__pycache__/
 vis/__pycache__/
+
+notebooks/\.ipynb_checkpoints/
+
+*.svg
