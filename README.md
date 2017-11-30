@@ -12,37 +12,6 @@ concerning aluminum in basic conditions as well as data generated from the
 
 ## TODO
 
-- [ ] Consider general import function map to specific data type readers.
-- [ ] Build RDF database visualization application.
-- [ ] Add Li transfer spectra.
-- [ ] Prepare ISA handlers for incoming NMR data.
-- [x] RDF plotting work.
-- [x] Fix data file paths in the ISA generation script.
-- [x] Clean up project folder.
-- [x] RDF-ISA integration handler(s).
-- [x] Parse probability in RDF visualization.
-
-
-## Standardized Column Headers
-
-At the moment it seems required to name the columns consistently within
-their corresponding `.csv` files. The table below shows the headers used.
-
-| CSV Header | Description |
--------------|--------------
-`Al_concentration` | The concentration of aluminate in moles per liter (M).
-`OH_concentration` | Concentration of hydroxide. *Not* the pH.
-`wavelength`       | a wavelength peak, measured in cm<sup>-1</sup>.
-`temperature`      | The temperature of the experiment, given in Celsius.
-`Al_ppm`           | The peak of an <sup>27</sup>Al in ppm.
-
-
-## Counter Ions tracked
-
-The ISA metadata toolset contains some methods for handling materials.
-Since the counter ions are easily deliniated (among a few possible elements)
-it seems easier to simply store them as a list of factors. For convenience
-the counter ions found so far are shown below.
-
-| Counter ion symbol | element or description |
-|--------------------|------------------------|
+- [ ] Complete planning outline.
+- [ ] Construct project skeleton.
+- [ ] Create new repository.
